@@ -23,19 +23,22 @@ const MAINTENANCE_HTML = `
     <p>The site is temporarily unavailable.</p>
     </body>
     </html>
-`
+`.trim()
 
-const MAINTENANCE_RESPONSE = new Response(MAINTENANCE_HTML, {
-    status: 503,
-    headers: {
-        'content-type': 'text/html; charset=utf-8',
-        'cache-control': 'no-store',
-    },
-})
+const MAINTENANCE_STATUS = 503
+const MAINTENANCE_HEADERS = {
+    'content-type': 'text/html; charset=utf-8',
+    'cache-control': 'no-store',
+}
 
 export default {
     async fetch(request) {
-        if (FORCE_MAINTENANCE) return MAINTENANCE_RESPONSE.clone()
+        if (FORCE_MAINTENANCE) {
+            return new Response(MAINTENANCE_HTML, {
+                status: MAINTENANCE_STATUS,
+                headers: MAINTENANCE_HEADERS,
+            })
+        }
 
         const controller = new AbortController()
         const timeout = setTimeout(() => controller.abort(), TIMEOUT_MS)
@@ -46,7 +49,10 @@ export default {
             return response
         } catch (err) {
             console.error(err)
-            return MAINTENANCE_RESPONSE.clone()
+            return new Response(MAINTENANCE_HTML, {
+                status: MAINTENANCE_STATUS,
+                headers: MAINTENANCE_HEADERS,
+            })
         } finally {
             clearTimeout(timeout)
         }
