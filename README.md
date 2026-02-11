@@ -2,7 +2,7 @@
 
 Cloudflare Worker that provides a graceful maintenance fallback when an origin server is unavailable.
 
-This worker sits at the Cloudflare edge, forwards requests to the configured origin, and serves a static maintenance page if the origin is unreachable (e.g., container crash, host reboot, network outage).
+This worker sits at the Cloudflare edge, forwards requests to the configured origin, and serves a static maintenance page if Cloudflare fails to fetch from the origin (e.g., container crash, host reboot, network outage).
 
 ## Details
 

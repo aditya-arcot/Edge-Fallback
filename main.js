@@ -54,10 +54,13 @@ export default {
         const controller = new AbortController()
         const timeout = setTimeout(() => controller.abort(), TIMEOUT_MS)
         try {
-            const response = await fetch(request, {
+            const resp = await fetch(request, {
                 signal: controller.signal,
             })
-            return response
+            // https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#:~:text=send%20a%20response.-,Cloudflare,-Cloudflare%27s%20reverse
+            if (resp.status >= 520 && resp.status <= 530)
+                throw Error(`Origin returned ${resp.status}`)
+            return resp
         } catch (err) {
             console.error(err)
             return new Response(MAINTENANCE_HTML, {
