@@ -8,19 +8,30 @@ const MAINTENANCE_HTML = `
     <title>Maintenance</title>
     <meta charset="utf-8"/>
     <style>
-        body {
-        font-family: system-ui, sans-serif;
-        text-align: center;
-        padding-top: 12%;
-        background: #fafafa;
-        color: #333;
+        html, body {
+            height: 100%;
+            margin: 0;
         }
+
+        body {
+            font-family: system-ui, sans-serif;
+            background: lightgrey;
+            color: black;
+
+            display: flex;
+            justify-content: center;  /* horizontal center */
+            align-items: center;      /* vertical center */
+            text-align: center;
+        }
+
         h1 { font-size: 2rem; }
     </style>
     </head>
     <body>
-    <h1>We'll be back soon</h1>
-    <p>The site is temporarily unavailable.</p>
+        <div>
+            <h1>We'll be back soon</h1>
+            <p>The site is temporarily unavailable.</p>
+        </div>
     </body>
     </html>
 `.trim()
