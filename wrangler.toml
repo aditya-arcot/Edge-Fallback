@@ -1,0 +1,3 @@
+name = "edge-fallback"
+main = "main.js"
+compatibility_date = "2026-02-11"
