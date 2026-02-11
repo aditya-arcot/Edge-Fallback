@@ -1,0 +1,13 @@
+#!/bin/sh
+set -Eeuo pipefail
+
+echo "Running pre-commit hook..."
+echo
+
+echo "Formatting and linting staged files..."
+lint-staged
+echo
+
+echo "Checking for available updates..."
+ncu
+echo
